@@ -1,1 +1,4 @@
 default_config: true
+base_domain: web4ai
+listen_port: 9000
+mesh_protocol: websocket

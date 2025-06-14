@@ -36,6 +36,7 @@ class MeshNode:
         self.node_id = config.get('node_id', f"node-{uuid.uuid4().hex[:12]}")
         self.node_type = config.get('node_type', 'enhanced_node')
         self.listen_port = config.get('listen_port', 9000)
+        self.bootstrap_nodes: List[str] = config.get('bootstrap_nodes', [])
         self.peers: Dict[str, NodeInfo] = {}
         self.connections: Dict[str, websockets.WebSocketServerProtocol] = {}
         self.message_handlers: Dict[str, Callable] = {}
@@ -51,6 +52,7 @@ class MeshNode:
     async def start(self):
         self.running = True
         await self._start_websocket_server()
+        await self._connect_to_bootstrap_nodes()
         self.logger.info("Mesh node started")
 
     async def stop(self):
@@ -118,6 +120,13 @@ class MeshNode:
             'node_id': self.node_id,
             'endpoints': [f"{socket.gethostname()}:{self.listen_port}"]
         })
+
+    async def _connect_to_bootstrap_nodes(self):
+        for address in self.bootstrap_nodes:
+            try:
+                await self.connect_to_peer(address)
+            except Exception as exc:
+                self.logger.warning(f"Failed to connect to bootstrap node {address}: {exc}")
 
     def register_message_handler(self, message_type: str, handler: Callable):
         self.message_handlers[message_type] = handler
