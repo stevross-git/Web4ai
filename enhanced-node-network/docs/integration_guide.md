@@ -1,0 +1,3 @@
+# Integration Guide
+
+Documentation placeholder.
