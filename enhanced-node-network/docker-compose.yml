@@ -1,0 +1,8 @@
+version: '3'
+services:
+  mesh-node:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.mesh-node
+    ports:
+      - "9000:9000"
