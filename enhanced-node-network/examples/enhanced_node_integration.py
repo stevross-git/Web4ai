@@ -6,4 +6,13 @@ from enhanced_network.integration.enhanced_node_bridge import EnhancedNodeBridge
 node = MeshNode({})
 bridge = EnhancedNodeBridge(node, {"url": "http://localhost:5000"})
 
-print("Integration example placeholder")
+import asyncio
+
+
+async def main() -> None:
+    await bridge.distribute_task({"task": "demo"})
+    print("Sent demo task to the mesh")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

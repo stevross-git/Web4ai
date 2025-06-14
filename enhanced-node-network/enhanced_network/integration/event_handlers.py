@@ -1,7 +1,7 @@
 """Event handling system."""
 
 class EventHandler:
-    """Simple event dispatcher placeholder."""
+    """Very small async event dispatcher used by integration examples."""
 
     def __init__(self):
         self._handlers = {}

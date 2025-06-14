@@ -1,3 +1,11 @@
-"""Integration test placeholder script."""
+"""Entry point for running a minimal integration test suite."""
 
-print("Running integration tests")
+import subprocess
+
+
+def main() -> None:
+    subprocess.run(["pytest", "tests/integration"], check=False)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,3 +1,4 @@
 FROM python:3.10-slim
 
-# integration container placeholder
+# Dockerfile used for integration tests.  It installs the package and exposes a
+# minimal runtime environment so that other services can connect to a mesh node.
